@@ -24,4 +24,6 @@ end
 
 1.times do |index|
   private_messages = PrivateMessage.create!(content: Faker::Hobbit.quote,sender_id: 1)
+  private_messages.recipients << User.find(5)
+  private_messages.recipients << User.find(8)
 end 
