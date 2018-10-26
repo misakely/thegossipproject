@@ -9,20 +9,31 @@
 
 require 'faker'
 
-10.times do |city|
-	cities = City.create!(city_name: Faker::GameOfThrones.city)
+
+15.times do |city|
+	cities = City.create!(name: Faker::GameOfThrones.city)
 end
 
-10.times do |index|
-	users = User.create!(first_name: Faker::Superhero.name, last_name: Faker::TwinPeaks.character, mail: Faker::Internet.email, city_id: Faker::Number.between(1,10), age: Faker::Number.between(18,90))
+15.times do |index|
+	users = User.create!(first_name: Faker::Superhero.name, last_name: Faker::TwinPeaks.character, description: Faker::TwinPeaks.quote, email: Faker::Internet.email, city_id: Faker::Number.between(1,10), age: Faker::Number.between(18,90))
   tags = Tag.create!(title: Faker::HarryPotter.book)
-  comments = Comment.create!(content: Faker::GreekPhilosophers.quote)
 end
 
 20.times do |index|
-  gossips = Gossip.create!(content: Faker::TwinPeaks.quote, title: Faker::Dessert.topping, user_id: )
+  gossips = Gossip.create!(content: Faker::TwinPeaks.quote, title: Faker::Dessert.topping, user_id: Faker::Number.between(1,10))
 end 
 
-1.times do |index|
-  private_messages = PrivateMessage.create!(content: Faker::Hobbit.quote,sender_id: 1)
+
+private_message = PrivateMessage.create!(content: Faker::Hobbit.quote,sender_id: 1)
+i = 1
+while i < 5
+private_message.recipients << User.find(i)
+i = i + 1
+end 
+
+i = 1
+while i < 11
+Gossip.find(i).tags <<  Tag.find(i)
+Gossip.find(i).tags <<  Tag.find(i+1)
+i = i+1
 end 
